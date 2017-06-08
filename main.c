@@ -13,14 +13,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define ROOT "/home/network"
-#define DESTINY ROOT"/backups"
+#define CLIENT "/home/pamoda/SyncTest/SyncClient/"
+#define SERVER "dvios-2@192.248.8.242:pamoda/SyncClient/"
+//#define SERVER "/home/pamoda/SyncTest/SyncServer/"
 /*
  * 
  */
-int main(int argc, char** argv) {
-    printf("Backing Up....\n");
-    system("rsync -avu " ROOT " " DESTINY);
-    printf("Back Up complete\n");
+int main() {
+    printf("Syncing....\n");
+    printf("Sending changes to the server....\n");
+    system("rsync -avrue 'ssh' " CLIENT " " SERVER ); // sync the latest changes of the client to the server
+    printf("Receiving changes from the server....\n");
+    system("rsync -avrue 'ssh' " SERVER " " CLIENT ); // sync the latest changes of the server to the client
+
+    printf("Synchronization complete\n");
 }
 
